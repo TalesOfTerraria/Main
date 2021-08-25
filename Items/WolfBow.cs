@@ -37,7 +37,7 @@ namespace ToT.Items
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<WolfFang>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<WolfFang>(), 2);
             recipe.AddIngredient(ItemID.WoodenBow, 1);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
