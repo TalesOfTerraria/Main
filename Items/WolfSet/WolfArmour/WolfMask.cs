@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace ToT.Items
+namespace ToT.Items.WolfSet.WolfArmour
 {
     [AutoloadEquip(EquipType.Head)]
     public class WolfMask : ModItem

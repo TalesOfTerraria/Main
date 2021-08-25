@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ToT.Items
+namespace ToT.Items.WolfSet
 {
     public class WolfBow : ModItem
     {
