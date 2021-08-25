@@ -1,0 +1,3 @@
+displayName = Tales of Terraria
+author = ikee
+version = 0.1
