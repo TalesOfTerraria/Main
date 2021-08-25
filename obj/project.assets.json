@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\Main\\ToT\\ToT.csproj",
+      "projectUniqueName": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ToT\\ToT.csproj",
       "projectName": "ToT",
-      "projectPath": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\Main\\ToT\\ToT.csproj",
+      "projectPath": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ToT\\ToT.csproj",
       "packagesPath": "C:\\Users\\isaac\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\Main\\ToT\\obj\\",
+      "outputPath": "C:\\Users\\isaac\\OneDrive\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ToT\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\isaac\\AppData\\Roaming\\NuGet\\NuGet.Config",
