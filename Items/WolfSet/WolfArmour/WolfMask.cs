@@ -23,5 +23,6 @@ namespace ToT.Items.WolfSet.WolfArmour
             item.rare = ItemRarityID.Blue;
 
         }
+
     }
 }
