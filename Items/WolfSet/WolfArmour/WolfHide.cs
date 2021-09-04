@@ -11,12 +11,21 @@ namespace ToT.Items.WolfSet.WolfArmour
         {
             base.SetStaticDefaults();
             Tooltip.SetDefault("Harness your primitive instincts" +
-                "\n Ranged attacks have a chance to inflict 'Frozen' debuff" +
-                "\n `15% increased summon damage")
+                "\nRanged attacks have a chance to inflict 'Frostburn' debuff" +
+                "\n15% increased summon damage");
         }
         public override void SetDefaults()
         {
-            
+            item.height = 9;
+            item.width = 11;
+            item.defense = 7;
+            item.rare = ItemRarityID.Blue;
+            item.value = 1000;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            player.GetModPlayer<WolfModPlayer>().FrostBurnRanged = true;
+            player.minionDamage += 0.15f;
         }
     }
 }

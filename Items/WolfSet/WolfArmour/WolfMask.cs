@@ -23,6 +23,23 @@ namespace ToT.Items.WolfSet.WolfArmour
             item.rare = ItemRarityID.Blue;
 
         }
-
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<WolfHide>() && legs.type == ModContent.ItemType<WolfChausses>();
+        }
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Ranged and summon damage increased by 15%" +
+                "\n60% increased mining speed";
+            player.rangedDamage += 0.15f;
+            player.minionDamage += 0.15f;
+            player.pickSpeed += 0.6f;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            player.buffImmune[BuffID.Frostburn] = true;
+            player.rangedDamage += 0.1f;
+            player.maxMinions += 1;
+        }
     }
 }

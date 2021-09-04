@@ -10,7 +10,8 @@ namespace ToT.Items.WolfSet
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fang Bow");
-            Tooltip.SetDefault("Wooden arrows go back to their origin...");
+            Tooltip.SetDefault("Wooden arrows go back to their origin..." +
+                "\n+10 armour penetration");
         }
         public override void SetDefaults()
         {
