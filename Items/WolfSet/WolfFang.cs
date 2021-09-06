@@ -8,17 +8,18 @@ namespace ToT.Items.WolfSet
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Charged with the blood of an icy creature");
+           // Tooltip.SetDefault("Charged with the blood of an icy creature");
+           Tooltip.SetDefault("Lets not Talk about how you got it...");
         }
         public override void SetDefaults()
         {
-            item.height = 16;
-            item.width = 16;
-            item.rare = 2;
-            item.value = Item.sellPrice(gold: 2);
-            item.useStyle = 1;
-            item.noMelee = true;
-            item.maxStack = 999;
+            Item.height = 16;
+            Item.width = 16;
+            Item.rare = 2;
+            Item.value = Item.sellPrice(gold: 2);
+            Item.useStyle = 1;
+            Item.noMelee = true;
+            Item.maxStack = 999;
         }
     }
 }
