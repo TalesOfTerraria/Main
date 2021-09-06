@@ -16,11 +16,11 @@ namespace ToT.Items.WolfSet.WolfArmour
         }
         public override void SetDefaults()
         {
-            item.height = 9;
-            item.width = 11;
-            item.defense = 7;
-            item.rare = ItemRarityID.Blue;
-            item.value = 1000;
+            Item.height = 9;
+            Item.width = 11;
+            Item.defense = 7;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = 1000;
         }
         public override void UpdateEquip(Player player)
         {

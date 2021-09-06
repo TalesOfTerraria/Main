@@ -1,11 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Text;
+using System;
+using System.Collections.Generic;
+using Terraria.Localization;
+using Terraria.UI.Chat;
 
 namespace ToT.Items.WolfSet
 {

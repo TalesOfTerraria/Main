@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,7 +32,7 @@ namespace ToT.Items.WolfSet
             Item.knockBack = 2;
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
-            Item.shoot = item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
+            Item.shoot = Item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
             Item.shootSpeed = 8f;
             Item.shoot = 1;
             Item.useAmmo = AmmoID.Arrow;
@@ -39,12 +40,12 @@ namespace ToT.Items.WolfSet
         public override void AddRecipes()
 		{
 			CreateRecipe()
-				..AddIngredient<ModContent.ItemType<WolfFang>, 4()
-				.AddIngredient(ItemID.WoodenBow)
+                .AddIngredient<Items.WolfSet.WolfFang> (4)
+                .AddIngredient(ItemID.WoodenBow)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (type == ProjectileID.WoodenArrowFriendly)
             {

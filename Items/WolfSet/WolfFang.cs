@@ -9,7 +9,7 @@ namespace ToT.Items.WolfSet
         public override void SetStaticDefaults()
         {
            // Tooltip.SetDefault("Charged with the blood of an icy creature");
-           Tooltip.SetDefault("Lets not Talk about how you got it...");
+           Tooltip.SetDefault("Lets not talk about how you got it...");
         }
         public override void SetDefaults()
         {
