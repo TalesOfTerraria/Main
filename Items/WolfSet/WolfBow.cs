@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace ToT.Items.WolfSet
 {
+//1.4
     public class WolfBow : ModItem
     {
         public override void SetStaticDefaults()
@@ -15,35 +16,34 @@ namespace ToT.Items.WolfSet
         }
         public override void SetDefaults()
         {
-            item.width = 16;
-            item.height = 16;
-            item.rare = ItemRarityID.Green;
-            item.value = Item.sellPrice(silver: 80);
-            item.maxStack = 1;
+            Item.width = 16;
+            Item.height = 16;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(silver: 80);
+            Item.maxStack = 1;
 
-            item.damage = 31;
-            item.shoot = item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
-            item.autoReuse = true;
-            item.useTime = 24;
-            item.useAnimation = 24;
-            item.useStyle = 5;
-            item.UseSound = SoundID.Item5;
-            item.knockBack = 2;
-            item.ranged = true;
-            item.noMelee = true;
-            item.shootSpeed = 8f;
-            item.shoot = 1;
-            item.useAmmo = AmmoID.Arrow;
+            Item.damage = 31;
+            Item.autoReuse = true;
+            Item.useTime = 24;
+            Item.useAnimation = 24;
+            Item.useStyle = 5;
+            Item.UseSound = SoundID.Item5;
+            Item.knockBack = 2;
+            Item.DamageType = DamageClass.Ranged;
+            Item.noMelee = true;
+            Item.shoot = item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
+            Item.shootSpeed = 8f;
+            Item.shoot = 1;
+            Item.useAmmo = AmmoID.Arrow;
         }
         public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<WolfFang>(), 2);
-            recipe.AddIngredient(ItemID.WoodenBow, 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
-        }
+		{
+			CreateRecipe()
+				..AddIngredient<ModContent.ItemType<WolfFang>, 4()
+				.AddIngredient(ItemID.WoodenBow)
+				.AddTile(TileID.Anvils)
+				.Register();
+		}
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (type == ProjectileID.WoodenArrowFriendly)
