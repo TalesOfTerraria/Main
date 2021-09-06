@@ -18,19 +18,13 @@ namespace ToT.Items.WolfSet
 				pool.Add(NPCID.Wolf, 0.05f);
 			}
 		}
-		public override void NPCLoot(NPC npc)
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             if (npc.type == NPCID.Wolf)
             {
-				if (Main.rand.Next(1, 3) == 1)
-                {
-					Item.NewItem(npc.getRect(), ModContent.ItemType<WolfFang>());
-				}
-
-			}
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WolfFang>(), 1, 2, 4));
+            }
         }
+	
 	}
 }
-
-
-
