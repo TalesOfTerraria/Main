@@ -7,7 +7,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 
-namespace ToT.Items
+namespace ToT.Items.WolfSet
 {
 	public class Wolf : GlobalNPC
 	{
