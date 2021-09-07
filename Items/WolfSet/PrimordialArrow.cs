@@ -15,19 +15,19 @@ namespace ToT.Items.WolfSet
         public override void SetDefaults()
         {
 
-            item.damage = 12;
-            item.ranged = true;
-            item.width = 14;
-            item.height = 32;
-            item.maxStack = 999;
-            item.consumable = true; 
-            item.knockBack = 0.5f;
-            item.value = Item.sellPrice(silver: 1);
-            item.rare = 2;
-            item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
-            item.notAmmo = false;
-            item.shootSpeed = 6f;
-            item.ammo = AmmoID.Arrow;
+            Item.damage = 12;
+            Item.ranged = true;
+            Item.width = 14;
+            Item.height = 32;
+            Item.maxStack = 999;
+            Item.consumable = true; 
+            Item.knockBack = 0.5f;
+            Item.value = Item.sellPrice(silver: 1);
+            Item.rare = 2;
+            Item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
+            Item.notAmmo = false;
+            Item.shootSpeed = 6f;
+            Item.ammo = AmmoID.Arrow;
         }
         public override void AddRecipes()
         {
