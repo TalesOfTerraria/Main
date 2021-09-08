@@ -29,14 +29,13 @@ namespace ToT.Items.WolfSet
             Item.shootSpeed = 6f;
             Item.ammo = AmmoID.Arrow;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()
-            {
-                .AddIngredient(ModContent.ItemType<WolfFang>(), 1);
-                .AddIngredient(ItemID.Wood, 10);
-                Register(200);
-            }
+                .AddIngredient<Items.WolfSet.WolfFang>(1)
+                .AddIngredient(ItemID.Wood)
+                .Register();
         }
     }
 }

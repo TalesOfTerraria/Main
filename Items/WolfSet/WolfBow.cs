@@ -41,7 +41,7 @@ namespace ToT.Items.WolfSet
 		{
 			CreateRecipe()
                 .AddIngredient<Items.WolfSet.WolfFang> (4)
-                .AddIngredient(ItemID.WoodenBow)
+                .AddIngredient(ItemID.WoodenBow, 10)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
