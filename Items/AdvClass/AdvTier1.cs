@@ -30,7 +30,7 @@ namespace ToT.Items.AdvClass
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.PinkLaser; 
+			Item.shoot = ProjectileID.RedLaser; 
 			Item.shootSpeed = 8; // How fast the item shoots the projectile.
 			Item.crit = 11; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 		}
