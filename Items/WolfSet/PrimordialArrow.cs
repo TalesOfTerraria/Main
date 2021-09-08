@@ -16,7 +16,7 @@ namespace ToT.Items.WolfSet
         {
 
             Item.damage = 12;
-            Item.ranged = true;
+            Item.DamageType = DamageClass.Ranged;
             Item.width = 14;
             Item.height = 32;
             Item.maxStack = 999;
@@ -31,11 +31,12 @@ namespace ToT.Items.WolfSet
         }
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ModContent.ItemType<WolfFang>(), 1);
-            recipe.AddIngredient(ItemID.Wood, 10);
-            recipe.SetResult(this, 200);
-            recipe.AddRecipe();
+            CreateRecipe()
+            {
+                .AddIngredient(ModContent.ItemType<WolfFang>(), 1);
+                .AddIngredient(ItemID.Wood, 10);
+                Register(200);
+            }
         }
     }
 }
