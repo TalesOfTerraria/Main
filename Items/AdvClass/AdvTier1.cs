@@ -10,8 +10,8 @@ namespace ToT.Items.AdvClass
 	public class AdvTier1 : ModItem
 	{
 		public override void SetStaticDefaults() {
-		    DisplayName.SetDefault("Cursed advancement grimoire");
-			Tooltip.SetDefault("This is an example magic weapon");
+		    DisplayName.SetDefault("Advancement Grimoire");
+			Tooltip.SetDefault("The first advancement grimoire");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -19,8 +19,8 @@ namespace ToT.Items.AdvClass
 		public override void SetDefaults() {
 			Item.damage = 14;
 			Item.DamageType = ModContent.GetInstance<AdvancementDamage>();
-			Item.width = 32;
-			Item.height = 32;
+			Item.width = 28;
+			Item.height = 30;
 			Item.useTime = 20; // 60 frames is a second
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot; // Makes the player use a 'Shoot' use style for the Item.
@@ -32,7 +32,7 @@ namespace ToT.Items.AdvClass
 			Item.autoReuse = true;
 			Item.shoot = ProjectileID.PinkLaser; 
 			Item.shootSpeed = 8; // How fast the item shoots the projectile.
-			Item.crit = 32; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
+			Item.crit = 11; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 		}
 
 		// How can I choose between several projectiles randomly?
@@ -41,9 +41,14 @@ namespace ToT.Items.AdvClass
 			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod projectile.
 			type = Main.rand.Next(new int[] { type, ProjectileID.CursedDart });
 		}
-		public override void HoldItem(Player player)
-        {
-			player.statDefense /= 5;
-        }
-    }
+		public override void AddRecipes()
+		{
+			CreateRecipe()
+				.AddIngredient<Items.AdvClass.CursedAdv>()
+				.AddIngredient<Items.AdvClass.BlessedKey>()
+				.AddTile(TileID.Bookcases)
+				.Register();
+		}
+
+	}
 }
