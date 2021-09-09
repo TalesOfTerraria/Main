@@ -8,7 +8,7 @@ namespace ToT.Items.WolfSet.WolfArmour
 	// The AutoloadEquip attribute automatically attaches an equip texture to this item.
 	// Providing the EquipType.Head value here will result in TML expecting a X_Head.png file to be placed next to the item's main texture.
 	[AutoloadEquip(EquipType.Head)]
-	public class WolfHelmet : ModItem
+	public class WolfMask : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -30,7 +30,7 @@ namespace ToT.Items.WolfSet.WolfArmour
 		// IsArmorSet determines what armor pieces are needed for the setbonus to take effect
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
-			return body.type == ModContent.ItemType<WolfBreastplate>() && legs.type == ModContent.ItemType<WolfLeggings>();
+			return body.type == ModContent.ItemType<WolfHide() && legs.type == ModContent.ItemType<WolfChausses>();
 		}
 
 		// UpdateArmorSet allows you to give set bonuses to the armor.
