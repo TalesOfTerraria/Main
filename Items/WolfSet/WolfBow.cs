@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
 namespace ToT.Items.WolfSet
 {
@@ -12,8 +13,8 @@ namespace ToT.Items.WolfSet
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Fang Bow");
-            Tooltip.SetDefault("Wooden arrows go back to their origin..." +
-                "\n+10 armour penetration");
+            Tooltip.SetDefault("Wooden arrows go back to their origin...");
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
         public override void SetDefaults()
         {
@@ -33,7 +34,7 @@ namespace ToT.Items.WolfSet
             Item.DamageType = DamageClass.Ranged;
             Item.noMelee = true;
             Item.shoot = Item.shoot = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
-            Item.shootSpeed = 8f;
+            Item.shootSpeed = 4f;
             Item.shoot = 1;
             Item.useAmmo = AmmoID.Arrow;
         }
@@ -41,7 +42,7 @@ namespace ToT.Items.WolfSet
 		{
 			CreateRecipe()
                 .AddIngredient<Items.WolfSet.WolfFang> (4)
-                .AddIngredient(ItemID.WoodenBow)
+                .AddIngredient(ItemID.WoodenBow, 1)
 				.AddTile(TileID.Anvils)
 				.Register();
 		}
@@ -52,10 +53,6 @@ namespace ToT.Items.WolfSet
                 type = ModContent.ProjectileType<Projectiles.PrimordialArrow>();
             }
             return true;
-        }
-        public override void HoldItem(Player player)
-        {
-            player.armorPenetration = player.armorPenetration + 8;
         }
     }
 }
