@@ -12,7 +12,7 @@ namespace ToT.Items.AdvClass
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("The Grimoire");
+			DisplayName.SetDefault("The ");
 			Tooltip.SetDefault("A millennial cursed griomire");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -40,7 +40,7 @@ namespace ToT.Items.AdvClass
 
 		public override void HoldItem(Player player)
 		{
-			player.statDefense /= 5;
+			player.AddBuff(BuffID.BrokenArmor, 300);
 			player.AddBuff(BuffID.PotionSickness, 600);
 		}
 
