@@ -16,8 +16,8 @@ namespace ToT.Items.WolfSet.WolfArmour
         }
         public override void SetDefaults()
         {
-            Item.height = 9;
-            Item.width = 11;
+            Item.height = 27;
+            Item.width = 33;
             Item.defense = 7;
             Item.rare = ItemRarityID.Blue;
             Item.value = 1000;
@@ -25,7 +25,7 @@ namespace ToT.Items.WolfSet.WolfArmour
         public override void UpdateEquip(Player player)
         {
             player.GetModPlayer<WolfModPlayer>().FrostBurnRanged = true;
-            player.GetDamage(DamageClass.Ranged) += 0.15f;
+            player.GetDamage(DamageClass.Summon) += 0.15f;
         }
     }
 }

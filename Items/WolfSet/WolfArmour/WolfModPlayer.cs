@@ -21,7 +21,11 @@ namespace ToT.Items.WolfSet.WolfArmour
             {
                 if (proj.CountsAsClass(DamageClass.Ranged) && FrostBurnRanged && !proj.noEnchantments)
                 {
-                    target.AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
+                    if (Main.rand.NextBool(5))
+                    {
+                        target.AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
+                    }
+                        
                 }
             }
         }

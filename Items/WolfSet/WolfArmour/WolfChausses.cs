@@ -15,8 +15,8 @@ namespace ToT.Items.WolfSet.WolfArmour
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Item.height = 7;
-            Item.width = 9;
+            Item.height = 21;
+            Item.width = 27;
             Item.defense = 3;
             Item.rare = ItemRarityID.Blue;
             Item.value = 1000;
