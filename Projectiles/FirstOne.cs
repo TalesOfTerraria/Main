@@ -10,18 +10,18 @@ using ToT.DamageClasses;
 
 namespace ToT.Projectiles
 {
-	public class CursedOne : ModProjectile
+	public class FirstOne : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Cursed One"); // The English name of the projectile
+			DisplayName.SetDefault("First One"); // The English name of the projectile
 			ProjectileID.Sets.TrailCacheLength[Projectile.type] = 5; // The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 0; // The recording mode
 		}
 
 		public override void SetDefaults()
 		{
-			Projectile.damage = 2;
+			Projectile.damage = 6;
 			Projectile.width = 14; // The width of projectile hitbox
 			Projectile.height = 12; // The height of projectile hitbox
 			Projectile.aiStyle = 1; // The ai style of the projectile, please reference the source code of Terraria
@@ -30,13 +30,13 @@ namespace ToT.Projectiles
 			Projectile.DamageType = ModContent.GetInstance<AdvancementDamage>();
 			Projectile.penetrate = 2; // How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
 			Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
-			Projectile.alpha = 40;
+			Projectile.alpha = 40; 
 			Projectile.light = 0.5f; // How much light emit around the projectile
 			Projectile.ignoreWater = false; // Does the projectile's speed be influenced by water?
 			Projectile.tileCollide = true; // Can the projectile collide with tiles?
 			Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
 
-			AIType = ProjectileID.ChlorophyteBullet; 
+			AIType = ProjectileID.ChlorophyteBullet;
 		}
 
 		public override bool PreDraw(ref Color lightColor)

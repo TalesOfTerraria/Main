@@ -11,7 +11,8 @@ namespace ToT.Items.AdvClass
 	{
 		public override void SetStaticDefaults() {
 		    DisplayName.SetDefault("Advancement Grimoire");
-			Tooltip.SetDefault("The first advancement grimoire");
+			Tooltip.SetDefault("The weakest advancement grimoire." +
+				"\nYou can update it.");
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
@@ -25,22 +26,16 @@ namespace ToT.Items.AdvClass
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot; // Makes the player use a 'Shoot' use style for the Item.
 			Item.noMelee = true; // Makes the Item not do damage with it's melee hitbox.
-			Item.knockBack = 12;
+			Item.knockBack = 5;
 			Item.value = Item.buyPrice(silver: 38);
 			Item.rare = ItemRarityID.Blue;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
-			Item.shoot = ProjectileID.LastPrism; 
+			Item.shoot = ModContent.ProjectileType<Projectiles.FirstOne>();
 			Item.shootSpeed = 8; // How fast the Item shoots the projectile.
-			Item.crit = 11; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
+			Item.crit = 7; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 		}
 
-		// How can I choose between several projectiles randomly?
-		public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-		{
-			// Here we randomly set type to either the original (as defined by the ammo), a vanilla projectile, or a mod projectile.
-			type = Main.rand.Next(new int[] { type, ProjectileID.CursedDart });
-		}
 		public override void AddRecipes()
 		{
 			CreateRecipe()
