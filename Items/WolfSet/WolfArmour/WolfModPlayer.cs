@@ -35,7 +35,7 @@ namespace ToT.Items.WolfSet.WolfArmour
             {
                 if (Item.useAmmo == AmmoID.Arrow)
                 {
-                    Item.shootSpeed *= 1.1f;
+                    Item.shootSpeed += 0.1f;
                 }
             }
             return base.Shoot(Item, player, source, position, velocity, type, damage, knockback);
