@@ -1,52 +1,45 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Terraria.GameContent.Creative;
 
 namespace ToT.Items.WolfSet.WolfArmour
 {
-	// The AutoloadEquip attribute automatically attaches an equip texture to this item.
-	// Providing the EquipType.Head value here will result in TML expecting a X_Head.png file to be placed next to the item's main texture.
-	[AutoloadEquip(EquipType.Head)]
-	public class WolfMask : ModItem
-	{
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Werewolf Helmet");
-			Tooltip.SetDefault("Increase your defence by 2");
+    [AutoloadEquip(EquipType.Head)]
+    public class WolfMask : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            base.SetStaticDefaults();
+            DisplayName.SetDefault("Wolf Mask");
+            Tooltip.SetDefault("Harness your primitive instincts"
+                + "\nImmunity to 'Frostburn' debuff"
+                + "\n+1 max minion and 10% increased ranged damage");
+        }
+        public override void SetDefaults()
+        {
+            Item.height = 13;
+            Item.width = 13;
+            Item.defense = 5;
+            Item.rare = ItemRarityID.Blue;
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-		}
-
-		public override void SetDefaults()
-		{
-			Item.width = 18; // Width of the item
-			Item.height = 18; // Height of the item
-			Item.sellPrice(silver: 49); // How many coins the item is worth
-			Item.rare = ItemRarityID.Blue; // The rarity of the item
-			Item.defense = 2; // The amount of defense the item will give when equipped
-		}
-
-		// IsArmorSet determines what armor pieces are needed for the setbonus to take effect
-		public override bool IsArmorSet(Item head, Item body, Item legs)
-		{
-			return body.type == ModContent.ItemType<WolfHide() && legs.type == ModContent.ItemType<WolfChausses>();
-		}
-
-		// UpdateArmorSet allows you to give set bonuses to the armor.
-		public override void UpdateArmorSet(Player player)
-		{
-			player.setBonus = "Increases ranger damage by 7% and defence by 4."; // This is the setbonus tooltip
-			player.GetDamage(DamageClass.Ranged) += 0.07f;
-			player.statDefense += 4;
-		}
-
-		public override void AddRecipes()
-		{
-			CreateRecipe()
-				.AddIngredient<Items.WolfSet.WolfFang>(2)
-				.AddTile(TileID.Anvils)
-				.Register();
-		}
-	}
+        }
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<WolfHide>() && legs.type == ModContent.ItemType<WolfChausses>();
+        }
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Ranged and summon damage increased by 15%" +
+                "\n60% increased mining speed";
+            player.GetDamage(DamageClass.Ranged) += 0.15f;
+            player.GetDamage(DamageClass.Summon) += 0.15f;
+            player.pickSpeed += 0.6f;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            player.buffImmune[BuffID.Frostburn] = true;
+            player.GetDamage(DamageClass.Ranged) += 0.1f;
+            player.maxMinions += 1;
+        }
+    }
 }

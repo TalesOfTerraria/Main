@@ -27,14 +27,14 @@ namespace ToT.Items.AdvClass
 			Item.useTime = 20; // 60 frames is a second
 			Item.useAnimation = 20;
 			Item.useStyle = ItemUseStyleID.Shoot; // Makes the player use a 'Shoot' use style for the Item.
-			Item.noMelee = true; // Makes the item not do damage with it's melee hitbox.
+			Item.noMelee = true; // Makes the Item not do damage with it's melee hitbox.
 			Item.knockBack = 12;
 			Item.value = Item.buyPrice(silver: 38);
 			Item.rare = ItemRarityID.Gray;
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true;
 			Item.shoot = ProjectileID.PinkLaser;
-			Item.shootSpeed = 8; // How fast the item shoots the projectile.
+			Item.shootSpeed = 8; // How fast the Item shoots the projectile.
 			Item.crit = 7; // The percent chance at hitting an enemy with a crit, plus the default amount of 4.
 		}
 

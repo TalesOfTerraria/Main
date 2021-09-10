@@ -2,6 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace ToT.Items.WolfSet.WolfArmour
 {
@@ -18,9 +19,8 @@ namespace ToT.Items.WolfSet.WolfArmour
         {
             if (FrostBurnRanged == true)
             {
-                if (((proj.ranged)) && FrostBurnRanged && !proj.noEnchantments)
+                if (proj.CountsAsClass(DamageClass.Ranged) && FrostBurnRanged && !proj.noEnchantments)
                 {
-                    // If all those checks pass, we apply FrostBurn for some random duration.
                     target.AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
                 }
             }
@@ -28,14 +28,17 @@ namespace ToT.Items.WolfSet.WolfArmour
     }
     public class ArrowVelocity : GlobalItem
     {
-        public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+   
+        public override bool Shoot(Item Item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             if (player.GetModPlayer<WolfModPlayer>().LegsVelocity == true)
             {
-                
-
+                if (Item.useAmmo == AmmoID.Arrow)
+                {
+                    Item.shootSpeed *= 1.1f;
+                }
             }
-            return base.Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            return base.Shoot(Item, player, source, position, velocity, type, damage, knockback);
         }
     }
 }
