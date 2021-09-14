@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using ToT.DamageClasses;
+using ToT.Dusts;
 
 namespace ToT.Projectiles
 {
@@ -35,8 +36,7 @@ namespace ToT.Projectiles
 			Projectile.ignoreWater = false; // Does the projectile's speed be influenced by water?
 			Projectile.tileCollide = true; // Can the projectile collide with tiles?
 			Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
-
-			AIType = ProjectileID.ChlorophyteBullet; 
+			AIType = ProjectileID.Bullet;
 		}
 
 		public override bool PreDraw(ref Color lightColor)
@@ -56,6 +56,52 @@ namespace ToT.Projectiles
 			return true;
 		}
 
+		public NPC FindClosestNPC(float maxDetectDistance)
+		{
+			NPC closestNPC = null;
+
+			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+			// Loop through all NPCs(max always 200)
+			for (int k = 0; k < Main.maxNPCs; k++)
+			{
+				NPC target = Main.npc[k];
+				// Check if NPC able to be targeted. It means that NPC is
+				// 1. active (alive)
+				// 2. chaseable (e.g. not a cultist archer)
+				// 3. max life bigger than 5 (e.g. not a critter)
+				// 4. can take damage (e.g. moonlord core after all it's parts are downed)
+				// 5. hostile (!friendly)
+				// 6. not immortal (e.g. not a target dummy)
+				if (target.CanBeChasedBy())
+				{
+					// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+					float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
+
+					// Check if it is within the radius
+					if (sqrDistanceToTarget < sqrMaxDetectDistance)
+					{
+						sqrMaxDetectDistance = sqrDistanceToTarget;
+						closestNPC = target;
+					}
+				}
+			}
+
+			return closestNPC;
+		}
+		public override void AI()
+		{
+			int dustType = ModContent.DustType<CursedDust>;
+			int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);
+		}
+		public override void Kill(int timeLeft)
+		{
+			for (int d = 0; d < 23; d++)
+			{
+				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GemSapphire, 0f, 0f, 150, default(Color), 1.5f);
+			}
+		}
 		public override void Kill(int timeLeft)
 		{
 			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
