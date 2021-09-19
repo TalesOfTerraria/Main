@@ -90,20 +90,29 @@ namespace ToT.Projectiles
 
 			return closestNPC;
 		}
-		public override void AI()
+		/*public override void AI()
 		{
 			int dustType = ModContent.DustType<Dusts.CursedDust>();
 			int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);
-		}
+		}*/
 		public override void Kill(int timeLeft)
 		{
+			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
+			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
 			for (int d = 0; d < 23; d++)
 			{
 				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.CursedDust>(), 0f, 0f, 150, default(Color), 1.5f);
 			}
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
 			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
 			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
 			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+>>>>>>> 1a395d9f3f5a9335511261dd752fc15685385fff
 		}
 	}
 }

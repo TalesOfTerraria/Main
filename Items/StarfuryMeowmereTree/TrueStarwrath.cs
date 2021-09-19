@@ -36,7 +36,7 @@ namespace Tot.Items.StarfuryMeowmereTree
 			Item.rare = 9;
 			Item.UseSound = SoundID.Item105;
 
-			Item.shoot = ProjectileID.StarWrath; // ID of the projectiles the sword will shoot
+			Item.shoot = Item.shoot = ModContent.ProjectileType<ToT.Projectiles.TrueStarwrathProjectile1>(); // ID of the projectiles the sword will shoot
 			Item.shootSpeed = 8f; // Speed of the projectiles the sword will shoot
 		}
 		// This method gets called when firing your weapon/sword.
@@ -73,10 +73,22 @@ namespace Tot.Items.StarfuryMeowmereTree
 
 			return false;
 		}
-        public override void AddRecipes()
+		public override void MeleeEffects(Player player, Rectangle hitbox)
+		{
+			if (Main.rand.NextBool(3))
+			{
+				//Emit dusts when the sword is swung
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, ModContent.DustType<ToT.Dusts.TrueStarWrathDust>());
+			}
+		}
+		public override void AddRecipes()
         {
 			CreateRecipe()
-				.AddIngredient
+				.AddIngredient(ItemID.LunarBar, 8)
+				.AddIngredient(ItemID.StarWrath, 1)
+				.AddTile(TileID.LunarCraftingStation)
+				.Register();
+				
         }
     }
 }

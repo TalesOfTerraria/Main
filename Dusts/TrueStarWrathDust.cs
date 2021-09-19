@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ToT.Dusts
 {
-	public class TrueStarWrathProjectileDust : ModDust
+	public class TrueStarWrathDust : ModDust
 	{
 		public override void OnSpawn(Dust dust)
 		{

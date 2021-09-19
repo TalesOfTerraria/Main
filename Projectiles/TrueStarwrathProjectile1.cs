@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ToT.Projectiles
 {
-    public class TrueStarWrathProjectile1 : ModProjectile
+    public class TrueStarwrathProjectile1 : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -19,17 +19,20 @@ namespace ToT.Projectiles
             Projectile.light = 0.7f;
             Projectile.friendly = true; 
             Projectile.hostile = false;
-            Projectile.aiStyle = ProjectileID.StarWrath;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.aiStyle = 5;
+            Projectile.DamageType = DamageClass.Melee;     
         }
-        public override void OnTileCollide()
+        public override void AI()
         {
-            Dust dust = Dust.NewDustDirect(usePos, projectile.width, projectile.height, 81);
-            dust.position = (dust.position + projectile.Center) / 2f;
-            dust.velocity += rotVector * 2f;
-            dust.velocity *= 0.5f;
-            dust.noGravity = true;
-            usePos -= rotVector * 8f;
+            int dustType = ModContent.DustType<Dusts.TrueStarWrathProjectileDust>();
+            int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);
+        }
+        public override void Kill(int timeLeft)
+        {
+            for (int d = 0; d < 23; d++)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.TrueStarWrathProjectileDust>(), 0f, 0f, 150, default(Color), 1.5f);
+            }
         }
     }
 }
