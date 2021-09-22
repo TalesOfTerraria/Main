@@ -29,16 +29,92 @@ namespace ToT.Projectiles
 			Projectile.friendly = true; // Can the projectile deal damage to enemies?
 			Projectile.hostile = false; // Can the projectile deal damage to the player?
 			Projectile.DamageType = ModContent.GetInstance<AdvancementDamage>();
-			Projectile.penetrate = 2; // How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
+			Projectile.penetrate = 1; // How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
 			Projectile.timeLeft = 600; // The live time for the projectile (60 = 1 second, so 600 is 10 seconds)
 			Projectile.alpha = 40;
 			Projectile.light = 0.5f; // How much light emit around the projectile
 			Projectile.ignoreWater = false; // Does the projectile's speed be influenced by water?
 			Projectile.tileCollide = true; // Can the projectile collide with tiles?
 			Projectile.extraUpdates = 1; // Set to above 0 if you want the projectile to update multiple time in a frame
-			AIType = ProjectileID.Bullet;
 		}
-
+		public override void AI()
+		{
+			Projectile.velocity.Y += 0.002f;
+			float num132 = (float)Math.Sqrt((double)(Projectile.velocity.X * Projectile.velocity.X + Projectile.velocity.Y * Projectile.velocity.Y));
+			float num133 = Projectile.localAI[0];
+			if (num133 == 0f)
+			{
+				Projectile.localAI[0] = num132;
+				num133 = num132;
+			}
+			float num134 = Projectile.position.X;
+			float num135 = Projectile.position.Y;
+			float num136 = 300f;
+			bool flag3 = false;
+			int num137 = 0;
+			if (Projectile.ai[1] == 0.002f)
+			{
+				for (int num138 = 0; num138 < 200; num138++)
+				{
+					if (Main.npc[num138].CanBeChasedBy(this, false) && (Projectile.ai[1] == 0f || Projectile.ai[1] == (float)(num138 + 1)))
+					{
+						float num139 = Main.npc[num138].position.X + (float)(Main.npc[num138].width / 2);
+						float num140 = Main.npc[num138].position.Y + (float)(Main.npc[num138].height / 2);
+						float num141 = Math.Abs(Projectile.position.X + (float)(Projectile.width / 2) - num139) + Math.Abs(Projectile.position.Y + (float)(Projectile.height / 2) - num140);
+						if (num141 < num136 && Collision.CanHit(new Vector2(Projectile.position.X + (float)(Projectile.width / 2), Projectile.position.Y + (float)(Projectile.height / 2)), 1, 1, Main.npc[num138].position, Main.npc[num138].width, Main.npc[num138].height))
+						{
+							num136 = num141;
+							num134 = num139;
+							num135 = num140;
+							flag3 = true;
+							num137 = num138;
+						}
+					}
+				}
+				if (flag3)
+				{
+					Projectile.ai[1] = (float)(num137 + 1);
+				}
+				flag3 = false;
+			}
+			if (Projectile.ai[1] > 1f)
+			{
+				int num142 = (int)(Projectile.ai[1] - 1f);
+				if (Main.npc[num142].active && Main.npc[num142].CanBeChasedBy(this, true) && !Main.npc[num142].dontTakeDamage)
+				{
+					float num143 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
+					float num144 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
+					if (Math.Abs(Projectile.position.X + (float)(Projectile.width / 2) - num143) + Math.Abs(Projectile.position.Y + (float)(Projectile.height / 2) - num144) < 1000f)
+					{
+						flag3 = true;
+						num134 = Main.npc[num142].position.X + (float)(Main.npc[num142].width / 2);
+						num135 = Main.npc[num142].position.Y + (float)(Main.npc[num142].height / 2);
+					}
+				}
+				else
+				{
+					Projectile.ai[1] = 0.002f;
+				}
+			}
+			if (!Projectile.friendly)
+			{
+				flag3 = false;
+			}
+			if (flag3)
+			{
+				float num145 = num133;
+				Vector2 vector10 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
+				float num146 = num134 - vector10.X;
+				float num147 = num135 - vector10.Y;
+				float num148 = (float)Math.Sqrt((double)(num146 * num146 + num147 * num147));
+				num148 = num145 / num148;
+				num146 *= num148;
+				num147 *= num148;
+				int num149 = 8;
+				Projectile.velocity.X = (Projectile.velocity.X * (float)(num149 - 1) + num146) / (float)num149;
+				Projectile.velocity.Y = (Projectile.velocity.Y * (float)(num149 - 1) + num147) / (float)num149;
+			}
+		}
 		public override bool PreDraw(ref Color lightColor)
 		{
 			Main.instance.LoadProjectile(Projectile.type);
@@ -55,64 +131,6 @@ namespace ToT.Projectiles
 
 			return true;
 		}
-
-		public NPC FindClosestNPC(float maxDetectDistance)
-		{
-			NPC closestNPC = null;
-
-			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
-			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
-
-			// Loop through all NPCs(max always 200)
-			for (int k = 0; k < Main.maxNPCs; k++)
-			{
-				NPC target = Main.npc[k];
-				// Check if NPC able to be targeted. It means that NPC is
-				// 1. active (alive)
-				// 2. chaseable (e.g. not a cultist archer)
-				// 3. max life bigger than 5 (e.g. not a critter)
-				// 4. can take damage (e.g. moonlord core after all it's parts are downed)
-				// 5. hostile (!friendly)
-				// 6. not immortal (e.g. not a target dummy)
-				if (target.CanBeChasedBy())
-				{
-					// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
-					float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
-
-					// Check if it is within the radius
-					if (sqrDistanceToTarget < sqrMaxDetectDistance)
-					{
-						sqrMaxDetectDistance = sqrDistanceToTarget;
-						closestNPC = target;
-					}
-				}
-			}
-
-			return closestNPC;
-		}
-		/*public override void AI()
-		{
-			int dustType = ModContent.DustType<Dusts.CursedDust>();
-			int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);
-		}*/
-		public override void Kill(int timeLeft)
-		{
-			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
-			for (int d = 0; d < 23; d++)
-			{
-				Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.CursedDust>(), 0f, 0f, 150, default(Color), 1.5f);
-			}
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
-			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
-			Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-			SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
->>>>>>> 1a395d9f3f5a9335511261dd752fc15685385fff
-		}
 	}
 }
+
