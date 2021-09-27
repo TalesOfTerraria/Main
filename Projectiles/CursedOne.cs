@@ -39,10 +39,10 @@ namespace ToT.Projectiles
 		}
 		public override void AI()
 		{
-			Projectile.velocity.Y += 0.002f;
+			Projectile.velocity.Y += 0.1f;
 			float num132 = (float)Math.Sqrt((double)(Projectile.velocity.X * Projectile.velocity.X + Projectile.velocity.Y * Projectile.velocity.Y));
 			float num133 = Projectile.localAI[0];
-			if (num133 == 0f)
+			if (num133 == 1f)
 			{
 				Projectile.localAI[0] = num132;
 				num133 = num132;
@@ -52,7 +52,7 @@ namespace ToT.Projectiles
 			float num136 = 300f;
 			bool flag3 = false;
 			int num137 = 0;
-			if (Projectile.ai[1] == 0.002f)
+			if (Projectile.ai[1] == 2f)
 			{
 				for (int num138 = 0; num138 < 200; num138++)
 				{
@@ -93,7 +93,7 @@ namespace ToT.Projectiles
 				}
 				else
 				{
-					Projectile.ai[1] = 0.002f;
+					Projectile.ai[1] = 4f;
 				}
 			}
 			if (!Projectile.friendly)
