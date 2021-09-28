@@ -23,10 +23,20 @@ namespace ToT.Bosses
                     BuffID.Frozen
                 }
             });
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            {
+                CustomTexturePath = "ExampleMod/Assets/Textures/Bestiary/MinionBoss_Preview",
+                PortraitScale = 0.6f, // Portrait refers to the full picture when clicking on the icon in the bestiary
+                PortraitPositionYOverride = 0f,
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+        }
         public override void SetDefaults()
         {
             NPC.width = 70;
             NPC.height = 40;
+            NPC.aiStyle = -1;
+
         }
     }
     }
